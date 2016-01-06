@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: Socmednet
+        psr4_prefix: Socmednet
+        src_path: app
