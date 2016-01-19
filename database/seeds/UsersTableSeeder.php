@@ -14,7 +14,8 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Administrator',
             'email' => 'admin@socmedtech.com',
-            'password' => bcrypt('password')
+            'password' => bcrypt('password'),
+            'active' => '1'
         ]);
     }
 }

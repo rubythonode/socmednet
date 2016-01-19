@@ -2,6 +2,15 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/xampp/htdocs/socmednet/app/User.php</file>
+            <file>file:/C:/xampp/htdocs/socmednet/resources/views/main/role_list.blade.php</file>
+            <file>file:/C:/xampp/htdocs/socmednet/database/seeds/SubmodulesPermissionsTableSeeder.php</file>
+            <file>file:/C:/xampp/htdocs/socmednet/app/Http/routes.php</file>
+            <file>file:/C:/xampp/htdocs/socmednet/app/Http/Controllers/Main/UserController.php</file>
+            <file>file:/C:/xampp/htdocs/socmednet/packages/carneles/uibuilder/src/UIBuilder.php</file>
+            <file>file:/C:/xampp/htdocs/socmednet/resources/views/main/user_list.blade.php</file>
+            <file>file:/C:/xampp/htdocs/socmednet/database/seeds/PermissionsTableSeeder.php</file>
+        </group>
     </open-files>
 </project-private>
