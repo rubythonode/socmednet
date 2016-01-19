@@ -16,7 +16,6 @@
 $(function () {
     $("#dataTable").DataTable();
 });
-
 </script>
 @endsection
 
@@ -49,22 +48,20 @@ $(function () {
                     <table id="dataTable" class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th>Email</th>
+                                <th>Code</th>
                                 <th>Name</th>
-                                <th>Created At</th>
-                                <th width="150px"><a class="btn btn-block btn-sm btn-success" href="{{ url('users/add') }}"><i class="fa fa-plus"></i> Add New</a></th>
+                                <th width="150px"><a class="btn btn-block btn-sm btn-success" href="{{ url('roles/add') }}"><i class="fa fa-plus"></i> Add New</a></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($data_list as $data)
                             <tr>
-                                <td>{{$data->email}}</td>
+                                <td>{{$data->code}}</td>
                                 <td>{{$data->name}}</td>
-                                <td>{{$data->created_at}}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <a class="btn btn-warning" href="{{ url('users/edit/'.$data->id) }}"><i class="fa fa-edit"></i></a>
-                                        <a class="btn btn-danger" href="{{ url('users/delete/' . $data->id) }}" onclick="return confirm('Are you sure you want to delete this data?')"><i class="fa fa-trash-o"></i></a>
+                                        <a class="btn btn-warning" href="{{ url('roles/edit/'.$data->id) }}"><i class="fa fa-edit"></i></a>
+                                        <a class="btn btn-danger" href="{{ url('roles/delete/' . $data->id) }}" onclick="return confirm('Are you sure you want to delete this data?')"><i class="fa fa-trash-o"></i></a>
                                     </div>
                                 </td>
                             </tr>

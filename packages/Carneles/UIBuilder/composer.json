@@ -1,0 +1,20 @@
+{
+    "name": "carneles/ui-builder",
+    "description": "Automatic HTML generator.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Carneles",
+            "email": "carneles@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Carneles\\UIBuilder\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "illuminate/support": "~5"
+    }
+}

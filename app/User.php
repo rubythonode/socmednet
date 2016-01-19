@@ -36,4 +36,34 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+    
+    /**
+     * The list of fields to be shown in the table.
+     * 
+     * @var array
+     */
+    public $tableField = ['email' => 'Email', 'name' => 'Name', 'createdAt' => 'Created At'];
+    
+    public $formField = [
+        'email' => [
+            'title' => 'Email',
+            'type' => 'text'
+        ],
+        'name' => [
+            'title' => 'Name',
+            'type' => 'text'
+        ]
+    ];
+    
+    public $baseURL = 'users';
+    
+    
+    
+    /**
+     * The groups belong to user.
+     */
+    public function roles()
+    {
+        return $this->belongsToMany('Socmednet\Role', 'users_roles', 'user_id', 'role_id');
+    }
 }

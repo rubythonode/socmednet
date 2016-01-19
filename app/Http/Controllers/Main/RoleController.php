@@ -6,20 +6,19 @@ use Illuminate\Http\Request;
 
 use Socmednet\Http\Requests;
 use Socmednet\Http\Controllers\BaseController;
-use Socmednet\User;
-use Socmednet\Http\Requests\UserPostRequest;
+use Socmednet\Http\Requests\RolePostRequest;
+use Socmednet\Role;
 use Session;
-use Auth;
-use Gate;
 
-class UserController extends BaseController
+class RoleController extends BaseController
 {
     function __construct() {
         $this->set_initial_data([
-            "page" => "USERS",
-            "title" => "User"
+            "page" => "ROLES",
+            "title" => "Role"
         ]);
     }
+    
     /**
      * Display a listing of the resource.
      *
@@ -27,17 +26,13 @@ class UserController extends BaseController
      */
     public function index()
     {
-        if (Gate::denies('index', Auth::user())) {
-            abort(503);
-        }
-        
-        $users = User::all();
+        $roles = Role::all();
         $this->add_to_data([
-            "subpage" => "USERS_LIST",
-            "subtitle" => "Available users in the system.",
-            "data_list" => $users
+            "subpage" => "ROLES_LIST",
+            "subtitle" => "Available roles in the system.",
+            "data_list" => $roles
         ]);
-        return view('main.user_list', $this->data);
+        return view('main.role_list', $this->data);
     }
 
     /**
@@ -48,10 +43,10 @@ class UserController extends BaseController
     public function create()
     {
         $this->add_to_data([
-            "subpage" => "USERS_ADD",
-            "subtitle" => "Add a new user.",
+            "subpage" => "ROLES_LIST",
+            "subtitle" => "Add a new role.",
         ]);
-        return view('main.user_modify', $this->data);
+        return view('main.role_modify', $this->data);
     }
 
     /**
@@ -60,23 +55,19 @@ class UserController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserPostRequest $request)
+    public function store(RolePostRequest $request)
     {
-        $user = new User;
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->active = $request->active;
-        if ($user->active != 1) {
-            $user->active = 0;
-        }
+        $role = new Role;
+        $role->code = $request->code;
+        $role->name = $request->name;
+        $role->description = $request->description;
         
-        if ($user->save()) {
+        if ($role->save()) {
             Session::flash('message', 'Your data has been successfully saved.');
-            return redirect('users/edit/'.$user->id);
+            return redirect('roles/edit/'.$role->id);
         } else {
             Session::flash('error', 'Failed to update the data. Please try again later.');
-            return redirect('users/add');
+            return redirect('roles/add');
         }
     }
 
@@ -99,13 +90,13 @@ class UserController extends BaseController
      */
     public function edit($id)
     {
-        $user = User::find($id);
+        $role = Role::find($id);
         $this->add_to_data([
-            "subpage" => "USERS_LIST",
+            "subpage" => "ROLES_LIST",
             "subtitle" => "Edit a user.",
-            "data" => $user
+            "data" => $role
         ]);
-        return view('main.user_modify', $this->data);
+        return view('main.role_modify', $this->data);
     }
 
     /**
@@ -115,24 +106,18 @@ class UserController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserPostRequest $request, $id)
+    public function update(RolePostRequest $request, $id)
     {
-        $user = User::find($id);
-        $user->name = $request->name;
-        if (!empty($request->password)) {
-            $user->password = bcrypt($request->password);
-        }
-        $user->active = $request->active;
-        if ($user->active != 1) {
-            $user->active = 0;
-        }
+        $role = Role::find($id);
+        $role->name = $request->name;
+        $role->description = $request->description;
         
-        if ($user->save()) {
+        if ($role->save()) {
             Session::flash('message', 'Your data has been successfully saved.');
         } else {
             Session::flash('error', 'Failed to update the data. Please try again later.');
         }
-        return redirect('users/edit/'.$user->id);
+        return redirect('roles/edit/'.$role->id);
     }
 
     /**
@@ -143,14 +128,14 @@ class UserController extends BaseController
      */
     public function destroy($id)
     {
-        $admin = User::where('name', 'Administrator')->first();
-        if ($id != $admin->id) {
-            $user = User::find($id);
-            $user->delete();
+        $admin_role = Role::where('code', 'ADMINISTRATOR')->first();
+        if ($id != $admin_role->id) {
+            $role = Role::find($id);
+            $role->delete();
             Session::flash('message', 'Data successfully deleted.');
-            return redirect('users');
+            return redirect('roles');
         }
         Session::flash('message', 'Data cannot be deleted.');
-        return redirect('users');
+        return redirect('roles');
     }
 }

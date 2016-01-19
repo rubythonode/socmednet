@@ -22,26 +22,56 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [function() {
-        return view('main/dashboard');
+        $data = array(
+            'page' => 'DASHBOARD',
+            'subpage' => 'DASHBOARD'
+        );
+        return view('main/dashboard', $data);
     }]);
     
-    // feature cart
+    // User
     Route::get('users', [
         'uses' => 'Main\UserController@index'
     ]);
-    Route::get('users/feature_cart/add/{code}', [
-        'uses' => 'User\FeatureCartController@create'
+    Route::get('users/add', [
+        'uses' => 'Main\UserController@create'
     ]);
-    Route::get('user/feature_cart/remove/{id}', [
-        'uses' => 'User\FeatureCartController@remove'
+    Route::post('users/add', [
+        'uses' => 'Main\UserController@store'
     ]);
-    Route::get('user/feature_cart/clear', [
-        'uses' => 'User\FeatureCartController@destroy'
+    Route::get('users/edit/{id}', [
+        'uses' => 'Main\UserController@edit'
     ]);
-    Route::get('user/feature_cart/checkout', [
-        'uses' => 'User\FeatureCartController@checkout'
+    Route::post('users/edit/{id}', [
+        'uses' => 'Main\UserController@update'
     ]);
-    Route::get('user/feature_cart/receipt', [
-        'uses' => 'User\FeatureCartController@receipt'
+    Route::get('users/delete/{id}', [
+        'uses' => 'Main\UserController@destroy'
+    ]);
+    Route::get('users/test', [
+        'uses' => 'Main\UserController@test'
+    ]);
+    
+    // Role
+    Route::get('roles', [
+        'uses' => 'Main\RoleController@index'
+    ]);
+    Route::get('roles/add', [
+        'uses' => 'Main\RoleController@create'
+    ]);
+    Route::post('roles/add', [
+        'uses' => 'Main\RoleController@store'
+    ]);
+    Route::get('roles/edit/{id}', [
+        'uses' => 'Main\RoleController@edit'
+    ]);
+    Route::post('roles/edit/{id}', [
+        'uses' => 'Main\RoleController@update'
+    ]);
+    Route::get('roles/delete/{id}', [
+        'uses' => 'Main\RoleController@destroy'
+    ]);
+    Route::get('roles/test', [
+        'uses' => 'Main\RoleController@test'
     ]);
 });
